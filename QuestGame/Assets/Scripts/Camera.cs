@@ -5,13 +5,13 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     private float cameraX, cameraY, cameraZ;
-    private Transform transform;
+    private Transform cameraTransform;
     private Transform playerTransform;
-    [SerializeField] private float mouseSensitivity = 2;
+    [SerializeField] private float mouseSensitivity = 2f;
 
     void Awake()
     {
-        transform = GetComponent<Transform>();
+        cameraTransform = GetComponent<Transform>();
         playerTransform = FindObjectOfType<Player>().GetComponent<Transform>();
         cameraX = 0;
         cameraY = 0;
@@ -33,14 +33,14 @@ public class Camera : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y");
      
         cameraX = Mathf.Clamp(cameraX - mouseY * mouseSensitivity, -70f, 70f);
-        cameraY = transform.rotation.eulerAngles.y;
-        cameraZ = transform.rotation.eulerAngles.z;
+        cameraY = cameraTransform.rotation.eulerAngles.y;
+        cameraZ = cameraTransform.rotation.eulerAngles.z;
 
         float playerX = playerTransform.rotation.eulerAngles.x;
         float playerY = playerTransform.rotation.eulerAngles.y + mouseX * mouseSensitivity;
         float playerZ = playerTransform.rotation.eulerAngles.z;
 
-        transform.rotation = Quaternion.Euler(cameraX, cameraY, cameraZ);
+        cameraTransform.rotation = Quaternion.Euler(cameraX, cameraY, cameraZ);
         playerTransform.rotation = Quaternion.Euler(playerX, playerY, playerZ);
     }
 }
