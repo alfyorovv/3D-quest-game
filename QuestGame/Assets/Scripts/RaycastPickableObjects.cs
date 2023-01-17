@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class RaycastPickableObjects : MonoBehaviour
 {
-    [SerializeField] private float raycastDistance = 2.5f;
-    private LayerMask raycastLayerMask;
+    [SerializeField] private float raycastDistance = 2.5f; 
     private Transform cameraTransform;
     private bool isEquiped = false;
 
@@ -15,7 +14,6 @@ public class RaycastPickableObjects : MonoBehaviour
 
     void Awake()
     {
-        raycastLayerMask = LayerMask.GetMask("PickableObjects");
         cameraTransform = GetComponent<Transform>();
     }
 
@@ -27,6 +25,7 @@ public class RaycastPickableObjects : MonoBehaviour
     private void WeaponEquiping()
     {
         RaycastHit hit;
+        LayerMask raycastLayerMask = LayerMask.GetMask("PickableObjects");
 
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, raycastDistance, raycastLayerMask))
         {
