@@ -9,7 +9,7 @@ public class Camera : MonoBehaviour
     private Transform playerTransform;
     [SerializeField] private float mouseSensitivity = 2f;
 
-    void Awake()
+    private void Awake()
     {
         cameraTransform = GetComponent<Transform>();
         playerTransform = FindObjectOfType<Player>().GetComponent<Transform>();
@@ -22,7 +22,7 @@ public class Camera : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void Update()
+    private void Update()
     {
         MoveCamera();
     }

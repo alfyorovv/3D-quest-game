@@ -5,25 +5,28 @@ using UnityEngine;
 public class Melee : MonoBehaviour
 {
     [SerializeField] private float fightRadius = 1f;
+    [SerializeField] private float attackCoolDown = 0.3f;
+
     private Animator animator;
     private Enemy enemy;
+    private bool canAttack = true;
 
     public GameObject damageSphere;
-    
-    void Awake()
+
+    private void Awake()
     {
         animator = GetComponent<Animator>();
         enemy = FindObjectOfType<Enemy>();
     }
 
-    void Update()
+    private void Update()
     {
         Attack();
     }
 
     private void Attack()
     {
-        if (Input.GetMouseButtonDown(0) && gameObject.transform.childCount != 0) //Mouse clicked and have any weapon equiped
+        if (Input.GetMouseButtonDown(0) && canAttack && gameObject.transform.childCount != 0) //Mouse clicked, attack cooldown finished and have any weapon equiped
         {
             animator.SetTrigger("attack");
 
@@ -34,6 +37,14 @@ public class Melee : MonoBehaviour
             {
                 enemy.GetDamage();
             }
+            StartCoroutine(AttackDelay());
         }
+    }
+
+    private IEnumerator AttackDelay()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(attackCoolDown);
+        canAttack = true;
     }
 }

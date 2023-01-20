@@ -6,13 +6,15 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private int hp = 3;
     private Animator animator;
+    private Collider collider;
 
-    void Awake()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
+        collider = GetComponent<Collider>();
     }
 
-    void Update()
+    private void Update()
     {
         if (hp <= 0)
         {
@@ -29,5 +31,6 @@ public class Enemy : MonoBehaviour
     public void Death()
     {
         animator.SetTrigger("dead");
+        collider.enabled = false;
     }
 }

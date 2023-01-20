@@ -12,12 +12,12 @@ public class RaycastPickableObjects : MonoBehaviour
     public GameObject weaponHolder;
 
 
-    void Awake()
+    private void Awake()
     {
         cameraTransform = GetComponent<Transform>();
     }
 
-    void Update()
+    private void Update()
     {
         WeaponEquiping();
     }
@@ -53,7 +53,7 @@ public class RaycastPickableObjects : MonoBehaviour
     private void PickUpWeapon(GameObject weapon)
     {
         weapon.GetComponent<Rigidbody>().isKinematic = true; //Object becomes kinematic after picking
-        weapon.GetComponent<BoxCollider>().isTrigger = true; //Set collider as trigger
+        weapon.GetComponent<Collider>().isTrigger = true; //Set collider as trigger
         weapon.transform.SetParent(weaponHolder.transform); //Set an object as a child of weapon holder
 
         //Set object to position of weapon holder
