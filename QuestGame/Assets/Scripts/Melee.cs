@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Melee : MonoBehaviour
@@ -7,6 +6,7 @@ public class Melee : MonoBehaviour
     [SerializeField] private float fightRadius = 1f;
     [SerializeField] private float attackCoolDown = 0.3f;
 
+    private LayerMask enemiesLayerMask;
     private Animator animator;
     private Enemy enemy;
     private bool canAttack = true;
@@ -15,6 +15,7 @@ public class Melee : MonoBehaviour
 
     private void Awake()
     {
+        enemiesLayerMask = LayerMask.GetMask("Enemies");
         animator = GetComponent<Animator>();
         enemy = FindObjectOfType<Enemy>();
     }
@@ -26,11 +27,10 @@ public class Melee : MonoBehaviour
 
     private void Attack()
     {
-        if (Input.GetMouseButtonDown(0) && canAttack && gameObject.transform.childCount != 0) //Mouse clicked, attack cooldown finished and have any weapon equiped
+        if (Input.GetButtonDown("Fire1") && canAttack && gameObject.transform.childCount != 0) //Mouse clicked, attack cooldown finished and have any weapon equiped
         {
             animator.SetTrigger("attack");
 
-            LayerMask enemiesLayerMask = LayerMask.GetMask("Enemies");
             Collider[] hitColliders = Physics.OverlapSphere(damageSphere.transform.position, fightRadius, enemiesLayerMask);
 
             foreach (var hitCollider in hitColliders)

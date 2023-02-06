@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private int hp = 3;
     private Animator animator;
-    private Collider collider;
+    private Collider enemyCollider;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        collider = GetComponent<Collider>();
+        enemyCollider = GetComponent<Collider>();
     }
 
     private void Update()
@@ -31,6 +29,6 @@ public class Enemy : MonoBehaviour
     public void Death()
     {
         animator.SetTrigger("dead");
-        collider.enabled = false;
+        enemyCollider.enabled = false;
     }
 }
