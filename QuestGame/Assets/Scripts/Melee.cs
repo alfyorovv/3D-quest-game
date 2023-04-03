@@ -17,7 +17,6 @@ public class Melee : MonoBehaviour
     {
         enemiesLayerMask = LayerMask.GetMask("Enemies");
         animator = GetComponent<Animator>();
-        enemy = FindObjectOfType<Enemy>();
     }
 
     private void Update()
@@ -35,6 +34,7 @@ public class Melee : MonoBehaviour
 
             foreach (var hitCollider in hitColliders)
             {
+                enemy = hitCollider.gameObject.GetComponent<Enemy>();
                 enemy.GetDamage();
             }
             StartCoroutine(AttackDelay());

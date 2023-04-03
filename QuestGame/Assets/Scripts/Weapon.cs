@@ -5,6 +5,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private float raycastDistance = 2.5f;
+    [SerializeField] private int damage = 10;
     private LayerMask pickableLayerMask;
     private bool isEquiped = false;
 
@@ -53,6 +54,7 @@ public class Weapon : MonoBehaviour
         weapon.GetComponent<Rigidbody>().isKinematic = true; //Object becomes kinematic after picking
         weapon.GetComponent<Collider>().isTrigger = true; //Set collider as trigger
         weapon.transform.SetParent(weaponHolder.transform); //Set an object as a child of weapon holder
+        weapon.tag = "EquipedWeapon";
 
         //Set object to position of weapon holder
         weapon.transform.localPosition = Vector3.zero;
@@ -63,6 +65,7 @@ public class Weapon : MonoBehaviour
     private void ChangeWeapon(GameObject newWeapon)
     {
         GameObject currentWeapon = weaponHolder.transform.GetChild(0).gameObject;
+        currentWeapon.tag = "Untagged";
 
         //Drop current weapon
         currentWeapon.GetComponent<Rigidbody>().isKinematic = false; //Object becomes non-kinematic after picking
@@ -71,5 +74,10 @@ public class Weapon : MonoBehaviour
         currentWeapon.GetComponent<Rigidbody>().AddForce(cameraTransform.forward * 2, ForceMode.Impulse); //Throw weapon
 
         PickUpWeapon(newWeapon);
+    }
+
+    public int GetDamage()
+    {
+        return damage;
     }
 }

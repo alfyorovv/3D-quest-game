@@ -125,3 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 093cdc81a6430a64ca026c59be99b4ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raycastDistance: 2.5
+  damage: 15
+  cameraTransform: {fileID: 0}
+  interactButton: {fileID: 0}
+  weaponHolder: {fileID: 0}

@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private int hp = 3;
+    [SerializeField] private int hp = 30;
     private Animator animator;
     private Collider enemyCollider;
+    private Weapon weapon;
 
     private void Awake()
     {
@@ -22,7 +23,8 @@ public class Enemy : MonoBehaviour
 
     public void GetDamage()
     {
-        hp -= 1;
+        weapon = GameObject.FindGameObjectWithTag("EquipedWeapon").GetComponent<Weapon>(); //Helps to know which weapon is picked
+        hp -= weapon.GetDamage();
         animator.SetTrigger("getDamage");
     }
 
